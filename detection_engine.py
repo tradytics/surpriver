@@ -33,10 +33,10 @@ argParser.add_argument("--top_n", type=int, default = 25, help="How many top pre
 argParser.add_argument("--min_volume", type=int, default = 5000, help="Minimum volume filter. Stocks with average volume of less than this value will be ignored")
 argParser.add_argument("--history_to_use", type=int, default = 7, help="How many bars of 1 hour do you want to use for the anomaly detection model.")
 argParser.add_argument("--is_load_from_dictionary", type=int, default = 0, help="Whether to load data from dictionary or get it from yahoo finance.")
-argParser.add_argument("--data_dictionary_path", type=str, default = "", help="Data dictionary path.")
+argParser.add_argument("--data_dictionary_path", type=str, default = "dictionaries/data_dictionary.npy", help="Data dictionary path.")
 argParser.add_argument("--is_save_dictionary", type=int, default = 1, help="Whether to save data in a dictionary.")
-argParser.add_argument("--data_granularity_minutes", type=int, default = 1, help="Minute level data granularity that you want to use. Default is 60 minute bars.")
-argParser.add_argument("--is_test", type=int, default = 1, help="Whether to test the tool or just predict for future. When testing, you should set the future_bars to larger than 1.")
+argParser.add_argument("--data_granularity_minutes", type=int, default = 15, help="Minute level data granularity that you want to use. Default is 60 minute bars.")
+argParser.add_argument("--is_test", type=int, default = 0, help="Whether to test the tool or just predict for future. When testing, you should set the future_bars to larger than 1.")
 argParser.add_argument("--future_bars", type=int, default = 25, help="How many bars to keep for testing purposes.")
 
 
