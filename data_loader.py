@@ -144,13 +144,14 @@ class DataEngine:
 			symbol = self.stocks_list[i]
 			try:
 				stock_price_data, future_prices, not_found = self.get_data(symbol)
-				volatility = self.calculate_volatility(stock_price_data)
-
-				# Filter low volatility stocks
-				if volatility < VOLATILITY_THRESHOLD:
-					continue
 					
 				if not not_found:
+					volatility = self.calculate_volatility(stock_price_data)
+
+					# Filter low volatility stocks
+					if volatility < VOLATILITY_THRESHOLD:
+						continue
+						
 					features_dictionary = self.taEngine.get_technical_indicators(stock_price_data)
 					feature_list = self.taEngine.get_features(features_dictionary)
 

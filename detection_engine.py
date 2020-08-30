@@ -184,6 +184,12 @@ class Surpriver:
 		for item in predictions_with_output_data[:self.TOP_PREDICTIONS_TO_PRINT]:
 			# Get some stats to print
 			prediction, symbol, historical_price, future_price = item
+
+			# Check if future data is present or not
+			if len(future_price) < 5:
+				print("No future data is present. Please make sure that you ran the prior command with is_test enabled or disable that command now. Exiting now...")
+				exit()
+
 			latest_date, today_volume, average_vol_last_five_days, average_vol_last_twenty_days = self.calculate_volume_changes(historical_price)
 			volatility_vol_last_five_days, volatility_vol_last_twenty_days, _ = self.calculate_recent_volatility(historical_price)
 			if average_vol_last_five_days == None or volatility_vol_last_five_days == None:
