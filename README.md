@@ -73,7 +73,7 @@ python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minut
 
 Here is the more detailed description of stats you get from the above command.
 ```
-*************** Future Performance ***************
+--> Future Performance
 Correlation between future absolute change vs anomalous score (lower is better, range = (-1, 1)): **-0.23**
 Total absolute change in future for Anomalous Stocks: **89.660**
 Total absolute change in future for Normal Stocks: **43.000**
