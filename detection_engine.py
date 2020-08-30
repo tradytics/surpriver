@@ -190,7 +190,7 @@ class Surpriver:
 			prediction, symbol, historical_price, future_price = item
 
 			# Check if future data is present or not
-			if len(future_price) < 5:
+			if self.IS_TEST == 1 and len(future_price) < 5:
 				print("No future data is present. Please make sure that you ran the prior command with is_test enabled or disable that command now. Exiting now...")
 				exit()
 
