@@ -89,5 +89,6 @@ You can see that historical volatility for normal vs anomalous stocks is not tha
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 A product by [Tradytics](https://www.tradytics.com/)
+
 Copyright (c) 2020-present, Tradytics.com
 
