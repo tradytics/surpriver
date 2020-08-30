@@ -31,7 +31,7 @@ You will need to install the following package to train and test the models.
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
 #### Get Most Anomalous Stocks for Today
-** When you do not have the data dictionary saved and you are running it for the first time. **
+__ When you do not have the data dictionary saved and you are running it for the first time. __
 ```
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0
 ```
