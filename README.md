@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="350" src="figures/black_logo.png">
+  <img width="350" src="figures/logo.png">
 </p>
 
 # Surpriver - Find High Moving Stocks before they Move
