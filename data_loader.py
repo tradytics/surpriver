@@ -4,18 +4,16 @@ import ta
 import sys
 import json
 import math
-from tqdm import tqdm
-import pymysql
 import pickle
 import random
 import requests
-import matplotlib
 import collections
 import numpy as np
 from os import walk
 import pandas as pd
 import yfinance as yf
 import datetime as dt
+from tqdm import tqdm
 from scipy.stats import linregress
 from datetime import datetime, timedelta
 from feature_generator import TAEngine

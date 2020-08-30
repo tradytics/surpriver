@@ -4,18 +4,15 @@ import ta
 import sys
 import json
 import math
-import pymysql
 import pickle
 import random
 import requests
-import matplotlib
 import collections
 import numpy as np
 from os import walk
 import pandas as pd
 import yfinance as yf
 import datetime as dt
-from dateutil import parser
 from scipy.stats import linregress
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt

@@ -16,3 +16,13 @@ Find high moving stocks before they move using anomaly detection and machine lea
 | detection_engine.py | Main module for running anomaly detection on data and finding stocks with most unusual price and volume patterns.
 | feature_generator.py | Generates price and volume return features as well as plenty of technical indicators.
 
+## Usage
+### Packages
+You will need to install the following package to train and test the models.
+- [Scikit-learn](https://scikit-learn.org/)
+- [Numpy](https://numpy.org/)
+- [Tqdm](https://github.com/tqdm/tqdm)
+- [Yfinance](https://github.com/ranaroussi/yfinance)
+- [Pandas](https://pandas.pydata.org/)
+- [Scipy](https://www.scipy.org/install.html)
+- [Ta](https://github.com/bukosabino/ta)

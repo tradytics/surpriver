@@ -4,7 +4,6 @@ import ta
 import sys
 import json
 import math
-import pymysql
 import pickle
 import random
 import requests
