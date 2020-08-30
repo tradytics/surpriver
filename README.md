@@ -31,6 +31,7 @@ You will need to install the following package to train and test the models.
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
 #### Get Most Anomalous Stocks for Today
+** When you do not have the data dictionary saved and you are running it for the first time **
 ```
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0
 ```
@@ -44,6 +45,12 @@ This command will give you the top **25 stocks** that had the highest anomaly sc
 - **is_load_from_dictionary**: Whether to load the data from dictionary or download it from yahoo finance directly. You can use the dictionary you saved above here for multiple runs.
 - **is_test**: You can actually test the predictions by leaving some of the recent data as future data and analyzing whether the most anomalous stocks moved the most after their predictions. If this value is 1, the value of **future_bars** should be greater than 5.
 - **future_bars**: These number of bars will be saved from the recent history for testing purposes.
+
+** When you have the data dictionary saved, you can just run the following command.**
+```
+python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 0 --is_test 0 --future_bars 0
+```
+Notice the change in **is_save_dictionary** and **is_load_from_dictionary**.
 
 Here is an output of how a single prediction looks like. **Please note that negative scores indicate higher anomalous and unusual patterns while positive scores indicate normal patterns. The lower the better**.
 
