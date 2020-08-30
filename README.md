@@ -49,14 +49,14 @@ Here is an output of how a single prediction looks like. **Please note that nega
 
 ```
 Last Bar Time: 2020-08-25 11:30:00-04:00
-Symbol: TGA
-Anomaly Score: -0.018
-Today Volume: 19.11K
-Average Volume 5d: 144.85K
-Average Volume 20d: 127.31K
-Volatility 5bars: 0.006
-Volatility 20bars: 0.010
-Future Absolute Sum Price Changes: 79.23 (This only appears if is_test is set to 1.)
+Symbol: SPI
+Anomaly Score: -0.029
+Today Volume (Today = Date Above): 313.94K
+Average Volume 5d: 206.53K
+Average Volume 20d: 334.14K
+Volatility 5bars: 0.013
+Volatility 20bars: 0.038
+Future Absolute Sum Price Changes: 72.87
 ```
 
 ### Test on Historical Data
