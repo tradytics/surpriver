@@ -86,7 +86,7 @@ Historical volatility for Normal Stocks: **2.076**
 You can see that historical volatility for normal vs anomalous stocks is not that different. However, the difference in total absolute future change is double for anomalous stocks as compared to normal stocks. 
 
 ## License
-[![MIT](https://img.shields.io/cocoapods/l/AFNetworking.svg?style=style&label=License&maxAge=2592000)](LICENSE)
+[![GNU](https://img.shields.io/cocoapods/l/AFNetworking.svg?style=style&label=License&maxAge=2592000)](LICENSE)
 
 Copyright (c) 2020-present, Tradytics
 
