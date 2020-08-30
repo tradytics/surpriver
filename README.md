@@ -30,6 +30,7 @@ You will need to install the following package to train and test the models.
 ### Predictions for Today
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
+#### Get Most Anomalous Stocks for Today
 ```
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0
 ```
@@ -61,6 +62,7 @@ Future Absolute Sum Price Changes: 79.23 (This only appears if is_test is set to
 ### Test on Historical Data
 If you are suspicious of the use of Machine Learning and Artificial Intelligence in trading, you can actually test the predictions from this tool on historical data. The two most important command line arguments for testing are **is_test** and **future_bars**. If the former one is set to 1 and the later one is set to anything more than 5, the tool will actually leave that amount of data for analysis purposes and use the data prior to that for anomalous predictions. Next, it will look at that remaining data to see how well the predictions did. Here is an example of a scatter plot from the following command.
 
+#### Find Anomalous Stocks and Test them on Historical Data
 ```
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 1 --future_bars 25
 ```
