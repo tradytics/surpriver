@@ -273,6 +273,12 @@ class Surpriver:
 		plt.grid()
 		plt.show()
 
+
+# Check arguments
 argumentChecker = ArgChecker()
+
+# Create surpriver instance
 supriver = Surpriver()
+
+# Generate predictions
 supriver.find_anomalies()
