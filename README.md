@@ -44,6 +44,20 @@ This command will give you the top **25 stocks** that had the highest anomaly sc
 - **is_test**: You can actually test the predictions by leaving some of the recent data as future data and analyzing whether the most anomalous stocks moved the most after their predictions. If this value is 1, the value of **future_bars** should be greater than 5.
 - **future_bars**: These number of bars will be saved from the recent history for testing purposes.
 
+Here is an output of how a single prediction looks like. **Please note that negative scores indicate higher anomalous and unusual patterns while positive scores indicate normal patterns. The lower the better**.
+
+```
+Last Bar Time: 2020-08-25 11:30:00-04:00
+Symbol: TGA
+Anomaly Score: -0.018
+Today Volume: 19.11K
+Average Volume 5d: 144.85K
+Average Volume 20d: 127.31K
+Volatility 5bars: 0.006
+Volatility 20bars: 0.010
+Future Absolute Sum Price Changes: 79.23 (This only appears if **is_test** is set to 1.)
+```
+
 ### Test on Historical Data
 If you are suspicious of the use of Machine Learning and Artificial Intelligence in trading, you can actually test the predictions from this tool on historical data. The two most important command line arguments for testing are **is_test** and **future_bars**. If the former one is set to 1 and the later one is set to anything more than 5, the tool will actually leave that amount of data for analysis purposes and use the data prior to that for anomalous predictions. Next, it will look at that remaining data to see how well the predictions did. Here is an example of a scatter plot from the following command.
 
