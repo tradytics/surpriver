@@ -71,7 +71,7 @@ python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minut
   <img src="figures/correlation_plot.png">
 </p>
 
-Here is the more detailed description of stats you get from the above command.
+As you can see in the image above, the anomalous stocks (score < 0) usually have a higher absolute change in the future on average. That proves that the predictions are actually for those stocks that moved more than average in the next few hours/days. One question arises here, what if the tool is just picking the highest volatility stocks because those would yield high future absolute change. In order to prove that it's not the case, here is the more detailed description of stats you get from the above command.
 ```
 --> Future Performance
 Correlation between future absolute change vs anomalous score (lower is better, range = (-1, 1)): **-0.23**
@@ -82,4 +82,6 @@ Average future volatility of Normal Stocks: **0.585**
 Historical volatility for Anomalous Stocks: **2.528**
 Historical volatility for Normal Stocks: **2.076**
 ```
+
+You can see that historical volatility for normal vs anomalous stocks is not that different. However, the difference in total absolute future change is double for anomalous stocks as compared to normal stocks. 
 
