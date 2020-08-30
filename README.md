@@ -34,5 +34,13 @@ If you want to go ahead and directly get the most anomalous stocks for today, yo
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0
 ```
 This command will give you the top **25 stocks** that had the highest anomaly score in the last **14 bars** of **60 minute candles**. It will also store all the data that it used to make predictions in the **dictionaries/data_dict.npy** folder. Below is a more detailed explanation of each parameter.
-- **First**
-- **First**
+- **top_n**: The total number of most anomalous stocks you want to see.
+- **min_volume**: Filter for volume. Any stock that has an average of volume lower than this value will be ignored.
+- **data_granularity_minutes**: Data granularity to use for analysis. The available options are *1min, 5min, 15min, 30min, 60min*.
+- **history_to_use**: Historical bars to use to analyze the unusual and anomalous patterns.
+- **is_save_dictionary**: Whether to save the stock data that is used for analysis in a dictionary or not. Enabling this would save you time if you want to do some further analysis on the data.
+- **data_dictionary_path**: Dictionary path where data would be stored.
+- **is_load_from_dictionary**: Whether to load the data from dictionary or download it from yahoo finance directly. You can use the dictionary you saved above here for multiple runs.
+- **is_test**: You can actually test the predictions by leaving some of the recent data as future data and analyzing whether the most anomalous stocks moved the most after their predictions. If this value is 1, the value of **future_bars** should be greater than 5.
+- **future_bars**: These number of bars will be saved from the recent history for testing purposes.
+
