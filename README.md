@@ -55,7 +55,7 @@ Average Volume 5d: 144.85K
 Average Volume 20d: 127.31K
 Volatility 5bars: 0.006
 Volatility 20bars: 0.010
-Future Absolute Sum Price Changes: 79.23 (This only appears if **is_test** is set to 1.)
+Future Absolute Sum Price Changes: 79.23 (This only appears if is_test is set to 1.)
 ```
 
 ### Test on Historical Data

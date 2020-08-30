@@ -191,14 +191,14 @@ class Surpriver:
 
 			if self.IS_TEST == 0:
 				# Not testing so just print the predictions
-				print("Latest Time for Analysis Data: %s\nSymbol: %s\nAnomaly Score: %.3f\nToday Volume: %s\nAverage Volume 5d: %s\nAverage Volume 20d: %s\nVolatility 5bars: %.3f\nVolatility 20bars: %.3f\n----------------------" % 
+				print("Last Bar Time: %s\nSymbol: %s\nAnomaly Score: %.3f\nToday Volume: %s\nAverage Volume 5d: %s\nAverage Volume 20d: %s\nVolatility 5bars: %.3f\nVolatility 20bars: %.3f\n----------------------" % 
 																	(latest_date, symbol, prediction,
 																	today_volume, average_vol_last_five_days, average_vol_last_twenty_days,
 																	volatility_vol_last_five_days, volatility_vol_last_twenty_days))
 			else:
 				# Testing so show what happened in the future
 				future_abs_sum_percentage_change, _ = self.calculate_future_performance(future_price)
-				print("Latest Time for Analysis Data: %s\nSymbol: %s\nAnomaly Score: %.3f\nToday Volume: %s\nAverage Volume 5d: %s\nAverage Volume 20d: %s\nVolatility 5bars: %.3f\nVolatility 20bars: %.3f\nFuture Absolute Sum Price Changes: %.2f\n----------------------" % 
+				print("Last Bar Time: %s\nSymbol: %s\nAnomaly Score: %.3f\nToday Volume: %s\nAverage Volume 5d: %s\nAverage Volume 20d: %s\nVolatility 5bars: %.3f\nVolatility 20bars: %.3f\nFuture Absolute Sum Price Changes: %.2f\n----------------------" % 
 																	(latest_date, symbol, prediction,
 																	today_volume, average_vol_last_five_days, average_vol_last_twenty_days,
 																	volatility_vol_last_five_days, volatility_vol_last_twenty_days,
