@@ -52,6 +52,6 @@ python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minut
 ```
 
 <p align="center">
-  <img src="correlation_plot.png">
+  <img src="figures/correlation_plot.png">
 </p>
 
