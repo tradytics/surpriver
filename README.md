@@ -74,6 +74,11 @@ If you are suspicious of the use of Machine Learning and Artificial Intelligence
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 1 --future_bars 25
 ```
 
+If you have already generated the data dictionary, you can use the following command.
+```
+python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 0 --is_test 1 --future_bars 25
+```
+
 <p align="center">
   <img src="figures/correlation_plot.png">
 </p>
