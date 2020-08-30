@@ -21,7 +21,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 class DataEngine:
-	def __init__(self, history_to_use, data_granularity_minutes, is_save_dict, is_load_dict, dict_path, min_volume_filter, is_test, future_bars_for_testing):
+	def __init__(self, history_to_use, data_granularity_minutes, is_save_dict, is_load_dict, dict_path, min_volume_filter, is_test, future_bars_for_testing, volatility_filter):
 		print("Data engine has been initialized...")
 		self.DATA_GRANULARITY_MINUTES = data_granularity_minutes
 		self.IS_SAVE_DICT = is_save_dict
@@ -30,6 +30,7 @@ class DataEngine:
 		self.VOLUME_FILTER = min_volume_filter
 		self.FUTURE_FOR_TESTING = future_bars_for_testing
 		self.IS_TEST = is_test
+		self.VOLATILITY_THRESHOLD = volatility_filter
 
 		# Stocks list
 		self.directory_path = str(os.path.dirname(os.path.abspath(__file__)))
@@ -139,7 +140,7 @@ class DataEngine:
 		historical_price_info = []
 		future_price_info = []
 
-		VOLATILITY_THRESHOLD = 0.1
+		 # Any stock with very low volatility is ignored. You can change this line to address that.
 		for i in tqdm(range(len(self.stocks_list))):
 			symbol = self.stocks_list[i]
 			try:
@@ -149,7 +150,7 @@ class DataEngine:
 					volatility = self.calculate_volatility(stock_price_data)
 
 					# Filter low volatility stocks
-					if volatility < VOLATILITY_THRESHOLD:
+					if volatility < self.VOLATILITY_THRESHOLD:
 						continue
 						
 					features_dictionary = self.taEngine.get_technical_indicators(stock_price_data)

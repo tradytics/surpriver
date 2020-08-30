@@ -38,6 +38,7 @@ argParser.add_argument("--is_save_dictionary", type=int, default = 1, help="Whet
 argParser.add_argument("--data_granularity_minutes", type=int, default = 15, help="Minute level data granularity that you want to use. Default is 60 minute bars.")
 argParser.add_argument("--is_test", type=int, default = 0, help="Whether to test the tool or just predict for future. When testing, you should set the future_bars to larger than 1.")
 argParser.add_argument("--future_bars", type=int, default = 25, help="How many bars to keep for testing purposes.")
+argParser.add_argument("--volatility_filter", type=float, default = 0.05, help="Stocks with volatility less than this value will be ignored.")
 
 
 args = argParser.parse_args()
@@ -50,6 +51,7 @@ is_save_dictionary = args.is_save_dictionary
 data_granularity_minutes = args.data_granularity_minutes
 is_test = args.is_test
 future_bars = args.future_bars
+volatility_filter = args.volatility_filter
 
 """
 Sample run:
@@ -85,12 +87,14 @@ class Surpriver:
 		self.DATA_GRANULARITY_MINUTES = data_granularity_minutes
 		self.IS_TEST = is_test
 		self.FUTURE_BARS_FOR_TESTING = future_bars
+		self.VOLATILITY_FILTER = volatility_filter
 
 		# Create data engine
 		self.dataEngine = DataEngine(self.HISTORY_TO_USE, self.DATA_GRANULARITY_MINUTES, 
 							self.IS_SAVE_DICTIONARY, self.IS_LOAD_FROM_DICTIONARY, self.DATA_DICTIONARY_PATH,
 							self.MINIMUM_VOLUME,
-							self.IS_TEST, self.FUTURE_BARS_FOR_TESTING)
+							self.IS_TEST, self.FUTURE_BARS_FOR_TESTING,
+							self.VOLATILITY_FILTER)
 		
 
 	def is_nan(self, object):
