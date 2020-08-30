@@ -12,5 +12,7 @@ Find high moving stocks before they move using anomaly detection and machine lea
 | &boxur;&nbsp; dictionaries | Folder to save data dictionaries for later use. 
 | &boxur;&nbsp; figures | Figures for this github repositories.
 | &boxur;&nbsp; stocks | List of all the stocks that you want to analyze.
-| dasdsa| asdasd
+| data_loader.py | Module for loading data from yahoo finance.
+| detection_engine.py | Main module for running anomaly detection on data and finding stocks with most unusual price and volume patterns.
+| feature_generator.py | Generates price and volume return features as well as plenty of technical indicators.
 
