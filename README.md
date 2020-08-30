@@ -26,3 +26,10 @@ You will need to install the following package to train and test the models.
 - [Pandas](https://pandas.pydata.org/)
 - [Scipy](https://www.scipy.org/install.html)
 - [Ta](https://github.com/bukosabino/ta)
+
+### Predictions
+If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
+
+```
+python detection_engine.py --is_test 0 --future_bars 25 --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/feature_dict_2.npy' --is_save_dictionary 0
+```
