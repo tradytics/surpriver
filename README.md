@@ -8,11 +8,9 @@ Find high moving stocks before they move using anomaly detection and machine lea
 ### Files Description
 | Path | Description
 | :--- | :----------
-| asfasdas | Main folder.
-| &boxur;&nbsp; tokenizer | Folder to store the tokenizer output files.
-| &boxur;&nbsp; labeled_data | Folder containing data for phishing and legitimate websites.
-| &ensp;&ensp; &boxvr;&nbsp; dasdsa| asdasd
+| surpriver | Main folder.
+| &boxur;&nbsp; dictionaries | Folder to save data dictionaries for later use. 
+| &boxur;&nbsp; figures | Figures for this github repositories.
+| &boxur;&nbsp; stocks | List of all the stocks that you want to analyze.
+| dasdsa| asdasd
 
-=======
-Find high moving stocks before they move using anomaly detection and machine learning. Surpriver uses machine learning to look at volume and price action and infer unusual patterns which can result in big moves in stocks.
->>>>>>> parent of 5729dc2... file structure
