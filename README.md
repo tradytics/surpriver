@@ -27,6 +27,11 @@ You will need to install the following package to train and test the models.
 - [Scipy](https://www.scipy.org/install.html)
 - [Ta](https://github.com/bukosabino/ta)
 
+You can install all packages using the following command. Please note that the script was written using python3.
+```
+pip install -r requirements.txt
+```
+
 ### Predictions for Today
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
