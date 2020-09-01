@@ -35,8 +35,7 @@ pip install -r requirements.txt
 ## Running with Docker
 You will need to have docker installed.
 
-- First you must build the container:
-`docker built . -t surpriver`
+- First you must build the container: `docker build . -t surpriver`
 - Then you need to copy the contents of docker-compose.yml.template to a new file called docker-compose.yml
 - Replace `<C:\\path\\to\\this\\dir>` with the directory you are working in.
 - Run the container by executing `docker-compose up -d`
