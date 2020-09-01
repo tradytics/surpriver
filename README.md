@@ -32,6 +32,16 @@ You can install all packages using the following command. Please note that the s
 pip install -r requirements.txt
 ```
 
+## Running with Docker
+You will need to have docker installed.
+
+- First you must build the container:
+`docker built . -t surpriver`
+- Then you need to copy the contents of docker-compose.yml.template to a new file called docker-compose.yml
+- Replace `<C:\\path\\to\\this\\dir>` with the directory you are working in.
+- Run the container by executing `docker-compose up -d`
+- Execute any of the commands below by prepending `docker exec -it surpriver` to your command line.
+
 ### Predictions for Today
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
