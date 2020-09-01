@@ -102,6 +102,10 @@ Historical volatility for Normal Stocks: **2.076**
 
 You can see that historical volatility for normal vs anomalous stocks is not that different. However, the difference in total absolute future change is double for anomalous stocks as compared to normal stocks. 
 
+### Results
+We will try to post the top 25 results for a single set of parameters every week.
+##### August 31: https://pastebin.com/L5T2BYUx
+
 ### Limitations
 The tool only finds stocks that have some unusual behavior in their price and volume action combined. It does not predict which direction the stock is going to move. That might be a feature that I'll implement in the future but for right now, you'll need to look at the charts and do your DD to figure that out.
 
