@@ -53,7 +53,7 @@ data_granularity_minutes = args.data_granularity_minutes
 is_test = args.is_test
 future_bars = args.future_bars
 volatility_filter = args.volatility_filter
-output_format = args.output_format
+output_format = args.output_format.upper()
 
 """
 Sample run:
