@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 
 ## Running with Docker
-You will need to have docker installed.
+You can also use docker if you know what it is and have some knowledge on how to use it. Here are the steps to run the tool with docker.
 
 - First you must build the container: `docker build . -t surpriver`
 - Then you need to copy the contents of docker-compose.yml.template to a new file called docker-compose.yml
