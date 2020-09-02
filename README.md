@@ -50,10 +50,11 @@ This command will give you the top **25 stocks** that had the highest anomaly sc
 - **is_load_from_dictionary**: Whether to load the data from dictionary or download it from yahoo finance directly. You can use the dictionary you saved above here for multiple runs.
 - **is_test**: You can actually test the predictions by leaving some of the recent data as future data and analyzing whether the most anomalous stocks moved the most after their predictions. If this value is 1, the value of **future_bars** should be greater than 5.
 - **future_bars**: These number of bars will be saved from the recent history for testing purposes.
+- **output_format**: The format for results. If you pass CLI, the results will be printed to the console. If you pass JSON, a JSON file will be created with results for today's date. The default is CLI.
 
 #####  When you have the data dictionary saved, you can just run the following command.
 ```
-python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 0 --is_test 0 --future_bars 0
+python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 0 --is_test 0 --future_bars 0 --output_format 'CLI'
 ```
 Notice the change in **is_save_dictionary** and **is_load_from_dictionary**.
 
