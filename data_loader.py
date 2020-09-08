@@ -18,10 +18,12 @@ from scipy.stats import linregress
 from datetime import datetime, timedelta
 from feature_generator import TAEngine
 import warnings
+from binance.client import Client
+
 warnings.filterwarnings("ignore")
 
 class DataEngine:
-	def __init__(self, history_to_use, data_granularity_minutes, is_save_dict, is_load_dict, dict_path, min_volume_filter, is_test, future_bars_for_testing, volatility_filter):
+	def __init__(self, history_to_use, data_granularity_minutes, is_save_dict, is_load_dict, dict_path, min_volume_filter, is_test, future_bars_for_testing, volatility_filter, stocks_list, data_source):
 		print("Data engine has been initialized...")
 		self.DATA_GRANULARITY_MINUTES = data_granularity_minutes
 		self.IS_SAVE_DICT = is_save_dict
@@ -31,10 +33,11 @@ class DataEngine:
 		self.FUTURE_FOR_TESTING = future_bars_for_testing
 		self.IS_TEST = is_test
 		self.VOLATILITY_THRESHOLD = volatility_filter
+		self.DATA_SOURCE = data_source
 
 		# Stocks list
 		self.directory_path = str(os.path.dirname(os.path.abspath(__file__)))
-		self.stocks_file_path = self.directory_path + "/stocks/stocks.txt"
+		self.stocks_file_path = self.directory_path + f"/stocks/{stocks_list}"
 		self.stocks_list = []
 
 		# Load stock names in a list
@@ -48,6 +51,9 @@ class DataEngine:
 
 		# Data length
 		self.stock_data_length = []
+		
+		# Create an instance of the Binance Client with no api key and no secret (api key and secret not required for the functionality needed for this script)
+		self.binance_client = Client("","")
 
 	def load_stocks_from_file(self):
 		"""
@@ -70,7 +76,7 @@ class DataEngine:
 
 	def get_data(self, symbol):
 		"""
-		Get stock data from yahoo finance.
+		Get stock data.
 		"""
 
 		# Find period
@@ -79,21 +85,41 @@ class DataEngine:
 		else:
 			period = "30d"
 
-		# Get stock price
 		try:
-			# Stock price
-			stock_prices = yf.download(
-					        tickers = symbol,
-					        period = period,
-					        interval = str(self.DATA_GRANULARITY_MINUTES) + "m",
-					        auto_adjust = False,
-					        progress=False)
+			# get crytpo price from Binance
+			if(self.DATA_SOURCE == 'binance'):
+				# Binance clients doesn't like 60m as an interval
+				if(self.DATA_GRANULARITY_MINUTES == 60):
+					interval = '1h'
+				else:
+					interval = str(self.DATA_GRANULARITY_MINUTES) + "m"
+				stock_prices = self.binance_client.get_klines(symbol=symbol, interval = interval)
+				# ensure that stock prices contains some data, otherwise the pandas operations below could fail
+				if len(stock_prices) == 0:
+					return [], [], True
+				# convert list to pandas dataframe
+				stock_prices = pd.DataFrame(stock_prices, columns=['Datetime', 'Open', 'High', 'Low', 'Close',
+                                             'Volume', 'close_time', 'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+				stock_prices['Datetime'] = stock_prices['Datetime'].astype(float)
+				stock_prices['Open'] = stock_prices['Open'].astype(float)
+				stock_prices['High'] = stock_prices['High'].astype(float)
+				stock_prices['Low'] = stock_prices['Low'].astype(float)
+				stock_prices['Close'] = stock_prices['Close'].astype(float)
+				stock_prices['Volume'] = stock_prices['Volume'].astype(float)
+			# get stock prices from yahoo finance
+			else:
+				stock_prices = yf.download(
+								tickers = symbol,
+								period = period,
+								interval = str(self.DATA_GRANULARITY_MINUTES) + "m",
+								auto_adjust = False,
+								progress=False)
 			stock_prices = stock_prices.reset_index()
 			stock_prices = stock_prices[['Datetime','Open', 'High', 'Low', 'Close', 'Volume']]
 			data_length = len(stock_prices.values.tolist())
 			self.stock_data_length.append(data_length)
 
-			# After getting some data, ignore partial data from yfinance based on number of data samples
+			# After getting some data, ignore partial data based on number of data samples
 			if len(self.stock_data_length) > 5:
 				most_frequent_key = self.get_most_frequent_key(self.stock_data_length)
 				if data_length != most_frequent_key:
@@ -124,7 +150,7 @@ class DataEngine:
 	def calculate_volatility(self, stock_price_data):
 		CLOSE_PRICE_INDEX = 4
 		stock_price_data_list = stock_price_data.values.tolist()
-		close_prices = [item[CLOSE_PRICE_INDEX] for item in stock_price_data_list]
+		close_prices = [float(item[CLOSE_PRICE_INDEX]) for item in stock_price_data_list]
 		close_prices = [item for item in close_prices if item != 0]
 		volatility = np.std(close_prices)
 		return volatility
@@ -159,6 +185,10 @@ class DataEngine:
 					# Add to dictionary
 					self.features_dictionary_for_all_symbols[symbol] = {"features": features_dictionary, "current_prices": stock_price_data, "future_prices": future_prices}
 
+					# Save dictionary after every 100 symbols
+					if len(self.features_dictionary_for_all_symbols) % 100 == 0 and self.IS_SAVE_DICT == 1:
+						np.save(self.DICT_PATH, self.features_dictionary_for_all_symbols)
+
 					if np.isnan(feature_list).any() == True:
 						continue
 
@@ -172,10 +202,6 @@ class DataEngine:
 					symbol_names.append(symbol)
 					historical_price_info.append(stock_price_data)
 					future_price_info.append(future_prices)
-
-					# Save dictionary after every 100 symbols
-					if len(self.features_dictionary_for_all_symbols) % 100 == 0 and self.IS_SAVE_DICT == 1:
-						np.save(self.DICT_PATH, self.features_dictionary_for_all_symbols)
 
 			except Exception as e:
 				print("Exception", e)
