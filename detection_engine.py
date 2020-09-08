@@ -1,4 +1,4 @@
-# Basic libraries
+ # Basic libraries
 import os
 import ta
 import sys
@@ -9,7 +9,7 @@ import random
 import requests
 import collections
 import numpy as np
-from os import walk
+from os import walk, path
 import pandas as pd
 import yfinance as yf
 import datetime as dt
@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
 from data_loader import DataEngine
 import warnings
+
 warnings.filterwarnings("ignore")
 
 # Styling for plots
@@ -32,7 +33,7 @@ argParser = argparse.ArgumentParser()
 argParser.add_argument("--top_n", type=int, default = 25, help="How many top predictions do you want to print")
 argParser.add_argument("--min_volume", type=int, default = 5000, help="Minimum volume filter. Stocks with average volume of less than this value will be ignored")
 argParser.add_argument("--history_to_use", type=int, default = 7, help="How many bars of 1 hour do you want to use for the anomaly detection model.")
-argParser.add_argument("--is_load_from_dictionary", type=int, default = 0, help="Whether to load data from dictionary or get it from yahoo finance.")
+argParser.add_argument("--is_load_from_dictionary", type=int, default = 0, help="Whether to load data from dictionary or get it from data source.")
 argParser.add_argument("--data_dictionary_path", type=str, default = "dictionaries/data_dictionary.npy", help="Data dictionary path.")
 argParser.add_argument("--is_save_dictionary", type=int, default = 1, help="Whether to save data in a dictionary.")
 argParser.add_argument("--data_granularity_minutes", type=int, default = 15, help="Minute level data granularity that you want to use. Default is 60 minute bars.")
@@ -40,7 +41,8 @@ argParser.add_argument("--is_test", type=int, default = 0, help="Whether to test
 argParser.add_argument("--future_bars", type=int, default = 25, help="How many bars to keep for testing purposes.")
 argParser.add_argument("--volatility_filter", type=float, default = 0.05, help="Stocks with volatility less than this value will be ignored.")
 argParser.add_argument("--output_format", type=str, default = "CLI", help="What format to use for printing/storing results. Can be CLI or JSON.")
-
+argParser.add_argument("--stock_list", type=str, default = "stocks.txt", help="What is the name of the file in the stocks directory which contains the stocks you wish to predict.")
+argParser.add_argument("--data_source", type=str, default = "yahoo_finance", help="The name of the data engine to use.")
 
 args = argParser.parse_args()
 top_n = args.top_n
@@ -54,6 +56,8 @@ is_test = args.is_test
 future_bars = args.future_bars
 volatility_filter = args.volatility_filter
 output_format = args.output_format.upper()
+stock_list = args.stock_list
+data_source = args.data_source
 
 """
 Sample run:
@@ -68,6 +72,7 @@ class ArgChecker:
 	def check_arugments(self):
 		granularity_constraints_list = [1, 5, 10, 15, 30, 60]
 		granularity_constraints_list_string = ''.join(str(value) + "," for value in granularity_constraints_list).strip(",")
+		directory_path = str(os.path.dirname(os.path.abspath(__file__)))
 
 		if data_granularity_minutes not in granularity_constraints_list:
 			print("You can only choose the following values for 'data_granularity_minutes' argument -> %s\nExiting now..." % granularity_constraints_list_string)
@@ -79,6 +84,12 @@ class ArgChecker:
 		
 		if output_format not in ["CLI", "JSON"]:
 			print("Please choose CLI or JSON for the output format field. Default is CLI.")
+			exit()
+		if not path.exists(directory_path + f'/stocks/{stock_list}'):
+			print("The stocks list file must exist in the stocks directory")
+			exit()
+		if data_source not in ['binance', 'yahoo_finance']:
+			print("Data source must be a valid and supported service.")
 			exit()
 
 class Surpriver:
@@ -95,13 +106,17 @@ class Surpriver:
 		self.FUTURE_BARS_FOR_TESTING = future_bars
 		self.VOLATILITY_FILTER = volatility_filter
 		self.OUTPUT_FORMAT = output_format
+		self.STOCK_LIST = stock_list
+		self.DATA_SOURCE = data_source
 
 		# Create data engine
 		self.dataEngine = DataEngine(self.HISTORY_TO_USE, self.DATA_GRANULARITY_MINUTES, 
 							self.IS_SAVE_DICTIONARY, self.IS_LOAD_FROM_DICTIONARY, self.DATA_DICTIONARY_PATH,
 							self.MINIMUM_VOLUME,
 							self.IS_TEST, self.FUTURE_BARS_FOR_TESTING,
-							self.VOLATILITY_FILTER)
+							self.VOLATILITY_FILTER,
+							self.STOCK_LIST,
+							self.DATA_SOURCE)
 		
 
 	def is_nan(self, object):
