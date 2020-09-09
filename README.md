@@ -112,6 +112,13 @@ Historical volatility for Normal Stocks: **2.076**
 
 You can see that historical volatility for normal vs anomalous stocks is not that different. However, the difference in total absolute future change is double for anomalous stocks as compared to normal stocks. 
 
+### Support for Crypto Currencies
+You can now specify which data source you wold like to use along with which stocks list you would like to use.
+```
+python detection_engine.py --top_n 25 --min_volume 500 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/feature_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0  --data_source binance --stock_list cryptos.txt
+```
+- **data_source**: Specifies where to get data from, current supported options are binance and yahoo_finance(default)
+- **stocks_list**: Which file in the stocks directory contains the list of tickers to analyze. Default is stocks.txt.
 ### Results
 We will try to post the top 25 results for a single set of parameters every week.
 ##### August 31, 2020 to September 05, 2020: https://pastebin.com/L5T2BYUx
