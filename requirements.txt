@@ -18,7 +18,6 @@ multitasking==0.0.9
 numpy==1.19.1
 pandas==1.1.1
 Pillow==7.2.0
-pkg-resources==0.0.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
