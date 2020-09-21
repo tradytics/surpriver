@@ -171,6 +171,10 @@ class DataEngine:
 			symbol = self.stocks_list[i]
 			try:
 				stock_price_data, future_prices, not_found = self.get_data(symbol)
+				if type(stock_price_data) == list:
+					current_stock_price = stock_price_data[-1]
+				else:
+					current_stock_price = stock_price_data["Close"].tail(1).values[0]
 					
 				if not not_found:
 					volatility = self.calculate_volatility(stock_price_data)
@@ -193,8 +197,8 @@ class DataEngine:
 						continue
 
 					# Check for volume
-					average_volume_last_30_tickers = np.mean(list(stock_price_data["Volume"])[-30:])
-					if average_volume_last_30_tickers < self.VOLUME_FILTER:
+					average_volume_last_30_tickers = np.mean(list(stock_price_data["Volume"])[-30:])*current_stock_price
+					if average_volume_last_30_tickers < (self.VOLUME_FILTER*current_stock_price):
 						continue
 
 					# Add to lists
