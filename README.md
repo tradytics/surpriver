@@ -33,22 +33,26 @@ pip install -r requirements.txt
 ```
 
 ## Running with Docker
+
 You can also use docker if you know what it is and have some knowledge on how to use it. Here are the steps to run the tool with docker.
 
-- First you must build the container: `docker build . -t surpriver`
-- Then you need to copy the contents of docker-compose.yml.template to a new file called docker-compose.yml
-- Replace `<C:\\path\\to\\this\\dir>` with the directory you are working in.
-- Run the container by executing `docker-compose up -d`
-- Execute any of the commands below by prepending `docker exec -it surpriver` to your command line.
+- First you must build the container: `make`
+- Execute any of the commands below by prepending `docker-compose exec surpriver` to your command line.
 
 ### Predictions for Today
 If you want to go ahead and directly get the most anomalous stocks for today, you can simple run the following command to get the stocks with the most unusual patterns. We will dive deeper into the command in the following sections.
 
 #### Get Most Anomalous Stocks for Today
 ##### When you do not have the data dictionary saved and you are running it for the first time.
-```
+
+```shell
+make today
+
+# OR
+
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 0 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 1 --is_test 0 --future_bars 0
 ```
+
 This command will give you the top **25 stocks** that had the highest anomaly score in the last **14 bars** of **60 minute candles**. It will also store all the data that it used to make predictions in the **dictionaries/data_dict.npy** folder. Below is a more detailed explanation of each parameter.
 - **top_n**: The total number of most anomalous stocks you want to see.
 - **min_volume**: Filter for volume. Any stock that has an average of volume lower than this value will be ignored.
@@ -61,8 +65,13 @@ This command will give you the top **25 stocks** that had the highest anomaly sc
 - **future_bars**: These number of bars will be saved from the recent history for testing purposes.
 - **output_format**: The format for results. If you pass CLI, the results will be printed to the console. If you pass JSON, a JSON file will be created with results for today's date. The default is CLI.
 
-#####  When you have the data dictionary saved, you can just run the following command.
-```
+##### When you have the data dictionary saved, you can just run the following command.
+
+```shell
+make history
+
+# OR
+
 python detection_engine.py --top_n 25 --min_volume 5000 --data_granularity_minutes 60 --history_to_use 14 --is_load_from_dictionary 1 --data_dictionary_path 'dictionaries/data_dict.npy' --is_save_dictionary 0 --is_test 0 --future_bars 0 --output_format 'CLI'
 ```
 Notice the change in **is_save_dictionary** and **is_load_from_dictionary**.
