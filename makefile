@@ -1,4 +1,4 @@
-start:
+start: dockerfile docker-compose.yml
 	docker-compose up -d --build
 
 stop:
@@ -10,7 +10,7 @@ down:
 ps:
 	docker-compose ps
 
-fresh: start
+today: start
 	docker-compose exec surpriver \
 		python detection_engine.py \
 		--top_n 25 \
