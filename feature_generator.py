@@ -42,14 +42,14 @@ class TAEngine:
 		# RSI
 		rsi_history = [5, 10, 15]
 		for history in rsi_history:
-			rsi = ta.momentum.RSIIndicator(price_data['Close'], n = history, fillna = True).rsi().values.tolist()
+			rsi = ta.momentum.RSIIndicator(price_data['Close'], window=history, fillna=True).rsi().values.tolist()
 			slope_rsi, r_value_rsi, p_value_rsi = self.calculate_slope(rsi[-self.HISTORY_TO_USE:])
 			technical_indicators_dictionary["rsi-" + str(history)] = rsi[-self.HISTORY_TO_USE:] + [slope_rsi, r_value_rsi, p_value_rsi]
 
 		# Stochastics
 		stochastic_history = [5, 10, 15]
 		for history in stochastic_history:
-			stochs = ta.momentum.StochasticOscillator(price_data['High'], price_data['Low'], price_data['Close'], n = history, d_n = int(history/3), fillna = True).stoch().values.tolist()
+			stochs = ta.momentum.StochasticOscillator(price_data['High'], price_data['Low'], price_data['Close'], window=history, smooth_window=int(history/3), fillna=True).stoch().values.tolist()
 			slope_stoch, r_value_stoch, p_value_stoch = self.calculate_slope(stochs[-self.HISTORY_TO_USE:])
 			technical_indicators_dictionary["stochs-" + str(history)] = stochs[-self.HISTORY_TO_USE:] + [slope_stoch, r_value_stoch, p_value_stoch]
 
@@ -62,14 +62,14 @@ class TAEngine:
 		# Ease of movement
 		eom_history = [5, 10, 20]
 		for history in eom_history:
-			eom = ta.volume.ease_of_movement(price_data['High'], price_data['Low'], price_data['Volume'], n=history, fillna=True).values.tolist()
+			eom = ta.volume.ease_of_movement(price_data['High'], price_data['Low'], price_data['Volume'], window=history, fillna=True).values.tolist()
 			slope_eom, r_value_eom, p_value_eom = self.calculate_slope(eom[-self.HISTORY_TO_USE:])
 			technical_indicators_dictionary["eom-" + str(history)] = [slope_eom, r_value_eom, p_value_eom]
 
 		# CCI
 		cci_history = [5, 10, 20]
 		for history in cci_history:
-			cci = ta.trend.cci(price_data['High'], price_data['Low'], price_data['Close'], n=history, c=0.015, fillna=True).values.tolist()
+			cci = ta.trend.cci(price_data['High'], price_data['Low'], price_data['Close'], window=history, constant=0.015, fillna=True).values.tolist()
 			slope_cci, r_value_cci, p_value_cci = self.calculate_slope(cci[-self.HISTORY_TO_USE:])
 			technical_indicators_dictionary["cci-" + str(history)] = cci[-self.HISTORY_TO_USE:] + [slope_cci, r_value_cci, p_value_cci]
 
