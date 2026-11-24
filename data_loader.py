@@ -106,6 +106,36 @@ class DataEngine:
 				stock_prices['Low'] = stock_prices['Low'].astype(float)
 				stock_prices['Close'] = stock_prices['Close'].astype(float)
 				stock_prices['Volume'] = stock_prices['Volume'].astype(float)
+			# get stock prices from Tradytics Public API (https://tradytics.com/docs)
+			elif(self.DATA_SOURCE == 'tradytics'):
+				api_key = os.environ.get("TRADYTICS_API_KEY")
+				if not api_key:
+					raise ValueError("Set TRADYTICS_API_KEY to use --data_source tradytics (free key at https://tradytics.com/developer/keys)")
+				tf_map = {1: "1m", 5: "5m", 10: "5m", 15: "15m", 30: "30m", 60: "1h"}
+				timeframe = tf_map.get(self.DATA_GRANULARITY_MINUTES, "15m")
+				lookback_days = 7 if self.DATA_GRANULARITY_MINUTES == 1 else 30
+				start_date = (datetime.utcnow() - timedelta(days=lookback_days)).strftime("%Y-%m-%d")
+				resp = requests.get(
+					"https://tradytics.com/api/public/v1/stocks/bars",
+					params={"symbol": symbol.upper(), "timeframe": timeframe, "from": start_date, "limit": 5000, "apiKey": api_key},
+					headers={"Accept": "application/json", "User-Agent": "tradytics-surpriver"},
+					timeout=30,
+				)
+				resp.raise_for_status()
+				rows = resp.json().get("data") or []
+				if len(rows) == 0:
+					return [], [], True
+				stock_prices = pd.DataFrame([
+					{
+						"Datetime": r.get("time"),
+						"Open": float(r.get("open", 0)),
+						"High": float(r.get("high", 0)),
+						"Low": float(r.get("low", 0)),
+						"Close": float(r.get("close", 0)),
+						"Volume": float(r.get("volume") or 0),
+					}
+					for r in rows
+				])
 			# get stock prices from yahoo finance
 			else:
 				stock_prices = yf.download(

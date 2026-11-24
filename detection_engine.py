@@ -42,7 +42,7 @@ argParser.add_argument("--future_bars", type=int, default = 25, help="How many b
 argParser.add_argument("--volatility_filter", type=float, default = 0.05, help="Stocks with volatility less than this value will be ignored.")
 argParser.add_argument("--output_format", type=str, default = "CLI", help="What format to use for printing/storing results. Can be CLI or JSON.")
 argParser.add_argument("--stock_list", type=str, default = "stocks.txt", help="What is the name of the file in the stocks directory which contains the stocks you wish to predict.")
-argParser.add_argument("--data_source", type=str, default = "yahoo_finance", help="The name of the data engine to use.")
+argParser.add_argument("--data_source", type=str, default = "yahoo_finance", help="The name of the data engine to use: yahoo_finance, binance, or tradytics (requires TRADYTICS_API_KEY).")
 
 args = argParser.parse_args()
 top_n = args.top_n
@@ -88,8 +88,8 @@ class ArgChecker:
 		if not path.exists(directory_path + f'/stocks/{stock_list}'):
 			print("The stocks list file must exist in the stocks directory")
 			exit()
-		if data_source not in ['binance', 'yahoo_finance']:
-			print("Data source must be a valid and supported service.")
+		if data_source not in ['binance', 'yahoo_finance', 'tradytics']:
+			print("Data source must be a valid and supported service ('yahoo_finance', 'binance', or 'tradytics').")
 			exit()
 
 class Surpriver:

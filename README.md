@@ -6,7 +6,7 @@
 Find high moving stocks before they move using anomaly detection and machine learning. Surpriver uses machine learning to look at volume + price action and infer unusual patterns which can result in big moves in stocks.
 
 > [!NOTE]
-> **Live Market Data API and MCP Server from Tradytics:** Connect Claude, ChatGPT, Cursor, or your Python and JavaScript scripts to options flow, dark pool prints, dealer gamma, stock perpetuals, prediction market odds, and company research.
+> **Live Market Data API and MCP Server from Tradytics:** Connect Claude, ChatGPT, Cursor, or your Python and JavaScript scripts to options flow, dark pool prints, dealer gamma, stock perpetuals, prediction market odds, and company research. You can also run Surpriver directly on Tradytics split-adjusted OHLCV bars via `--data_source tradytics` (`export TRADYTICS_API_KEY="tdy_..."`).
 > - **Hosted MCP:** [`https://tradytics.com/mcp`](https://tradytics.com/docs/mcp) (Streamable HTTP + OAuth) | **Agent skill:** `npx skills add tradytics/skills`
 > - **REST API & SDKs:** `pip install tradytics` | `npm install tradytics` | [Docs](https://tradytics.com/docs) | [Starter repo](https://github.com/tradytics/options-flow-mcp-starter)
 
